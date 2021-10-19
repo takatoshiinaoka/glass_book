@@ -1,4 +1,4 @@
-# test_laravel
+# glass_book
 
 # 環境構築のやり方
 まず初めにcomposerをインストールする．
