@@ -8,7 +8,7 @@
 ## clone
 コマンドプロンプトを開いて以下のコマンドを入力し，htdocsフォルダを開く．
         
-        cd C://xampp/htdocs
+    cd C://xampp/htdocs
         
 リポジトリをcloneする．
 
