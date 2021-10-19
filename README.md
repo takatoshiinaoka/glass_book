@@ -40,3 +40,7 @@
 laravel server
 
         php artisan serve
+        
+コントローラーファイル
+
+   　php artisan make:controller TweetController --resource
