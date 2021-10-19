@@ -36,3 +36,11 @@
 # xamppを立ち上げて表示する
 
 [http://localhost/glass_book/public/](http://localhost/glass_book/public/)
+
+laravel server
+
+        php artisan serve
+        
+コントローラーファイル
+
+   　php artisan make:controller TweetController --resource
