@@ -29,4 +29,4 @@
 
 # xamppを立ち上げて表示する
 
-[http://localhost/](http://localhost/)
+[http://localhost/glass_book/public/](http://localhost/glass_book/public/)
