@@ -5,7 +5,7 @@
 ### clone
 コマンドプロンプトで，xampp/htdocsのディレクトリを開き，以下のコマンドを実行する．
 
-    git clone 
+    git clone https://github.com/takatoshiinaoka/test_laravel.git
 
 ### Composer インストールをインストール
 プロジェクトに移動
