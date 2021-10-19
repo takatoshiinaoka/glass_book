@@ -1,6 +1,8 @@
 # test_laravel
 
 ## 環境構築のやり方
+まず初めにcomposerをインストールする．
+[composerのインストール](https://laraweb.net/surrounding/1669/)
 
 ### clone
 コマンドプロンプトで，xampp/htdocsのディレクトリを開き，以下のコマンドを実行する．
