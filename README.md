@@ -1,15 +1,16 @@
 # test_laravel
 
-## 環境構築のやり方
+# 環境構築のやり方
 まず初めにcomposerをインストールする．
+
 [composerのインストール](https://laraweb.net/surrounding/1669/)
 
-### clone
+## clone
 コマンドプロンプトで，xampp/htdocsのディレクトリを開き，以下のコマンドを実行する．
 
     git clone https://github.com/takatoshiinaoka/test_laravel.git
 
-### Composer インストールをインストール
+## Composer インストールをインストール
 プロジェクトに移動
 
     cd projectName
@@ -26,6 +27,6 @@
 
     php artisan key:generate
 
-## xamppを立ち上げて表示する
+# xamppを立ち上げて表示する
 
 [http://localhost/](http://localhost/)
