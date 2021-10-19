@@ -3,7 +3,7 @@
 # 環境構築のやり方
 まず初めにcomposerをインストールする．
 
-**Linux（レンタルサーバー）にComposerを入れる**はやらなくて大丈夫です．
+「**Linux（レンタルサーバー）にComposerを入れる**」はやらなくて大丈夫です．
 
 [composerのインストール](https://laraweb.net/surrounding/1669/)
 
