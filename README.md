@@ -1,19 +1,25 @@
-# test_laravel
+# glass_book
 
 # 環境構築のやり方
 まず初めにcomposerをインストールする．
 
+「**Linux（レンタルサーバー）にComposerを入れる**」はやらなくて大丈夫です．
+
 [composerのインストール](https://laraweb.net/surrounding/1669/)
 
 ## clone
-コマンドプロンプトで，xampp/htdocsのディレクトリを開き，以下のコマンドを実行する．
+コマンドプロンプトを開いて以下のコマンドを入力し，htdocsフォルダを開く．
+        
+    cd C://xampp/htdocs
+        
+リポジトリをcloneする．
 
     git clone https://github.com/takatoshiinaoka/glass_book.git
 
 ## Composer インストールをインストール
 プロジェクトに移動
 
-    cd projectName
+    cd glass_book
     
 ライブラリインストール
 
@@ -29,4 +35,4 @@
 
 # xamppを立ち上げて表示する
 
-[http://localhost/](http://localhost/)
+[http://localhost/glass_book/public/](http://localhost/glass_book/public/)
