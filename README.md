@@ -6,7 +6,11 @@
 [composerのインストール](https://laraweb.net/surrounding/1669/)
 
 ## clone
-コマンドプロンプトで，xampp/htdocsのディレクトリを開き，以下のコマンドを実行する．
+コマンドプロンプトを開いて以下のコマンドを入力し，htdocsフォルダを開く．
+        
+        cd C://xampp/htdocs
+        
+リポジトリをcloneする．
 
     git clone https://github.com/takatoshiinaoka/glass_book.git
 
