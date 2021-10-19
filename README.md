@@ -13,7 +13,7 @@
 ## Composer インストールをインストール
 プロジェクトに移動
 
-    cd projectName
+    cd glass_book
     
 ライブラリインストール
 
