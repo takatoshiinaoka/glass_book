@@ -38,6 +38,12 @@
 [http://localhost/glass_book/public/](http://localhost/glass_book/public/)
 
 # その他コマンド
+### Git のコマンド
+
+自分が作業するブランチは，(名前\_space)ブランチである．そこで作業をする時は，まず初めに，以下のコマンドを打って，メインブランチを自分のブランチにマージする．そこから作業を始めてください．
+
+        git pull origin main
+        
 laravel server
 
         php artisan serve
