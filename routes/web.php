@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('tweet', TweetController::class);
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/tweet/search', [TweetController::class, 'search'])->name('tweet.search');
+    Route::get('/tweet/searched', [TweetController::class, 'searched'])->name('tweet.searched');
+    Route::resource('tweet', TweetController::class);
+});
 Route::get('/', function () {
     return view('welcome');
 });

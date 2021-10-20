@@ -37,6 +37,7 @@
 
 [http://localhost/glass_book/public/](http://localhost/glass_book/public/)
 
+# その他コマンド
 laravel server
 
         php artisan serve
