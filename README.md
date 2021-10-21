@@ -42,12 +42,26 @@
 
 自分が作業するブランチは，(名前\_space)ブランチである．そこで作業をする時は，まず初めに，以下のコマンドを打って，メインブランチを自分のブランチにマージする．そこから作業を始めてください．
 
-        git pull origin main
+     git pull origin main
         
 laravel server
 
-        php artisan serve
+     php artisan serve
+  
+マイグレーションを実行するとテーブルが作成される．以下のコマンドを実行する．
+     
+     php artisan migrate
+ エラーになる場合はマイグレーションファイルの内容が間違っていることが多い．修正して以下のコマンドを実行する
+ 
+     php artisan migrate:fresh
         
-コントローラーファイル
+### ルーティングとコントローラの作成
+コントローラとルーティングを作成する．今回のコントローラ名はTweetControllerとする．
 
-   　php artisan make:controller TweetController --resource
+--resourceをつけることで，よく使用する処理（代表的な CRUD 処理）を一括して作成することができる．
+
+    php artisan make:controller TweetController --resource
+    
+    
+    
+    
