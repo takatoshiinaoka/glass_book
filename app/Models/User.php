@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+<<<<<<< Updated upstream
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -17,6 +18,10 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+=======
+    use HasFactory;
+    // use softDeletes;
+>>>>>>> Stashed changes
     protected $fillable = [
         'name',
         'email',
