@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Glass extends Model
 {
     use HasFactory;
-    use softDeletes;
+    // use softDeletes;
     protected $fillable = [
         'id',
         'updated_at'

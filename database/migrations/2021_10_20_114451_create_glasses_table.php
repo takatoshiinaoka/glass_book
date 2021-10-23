@@ -23,8 +23,7 @@ class CreateGlassesTable extends Migration
             $table->date('year_start');
             $table->date('year_end');
             $table->Integer('generation');
-
-            $table->softDeletes();
+            // $table->softDeletes();
             $table->timestamps();
         });
     }
