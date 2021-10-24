@@ -25,11 +25,21 @@
         <!-- ↓作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('input')" :active="request()->routeIs('input')">
-            {{ __('Mypage') }}
+            {{ __('Create') }}
           </x-nav-link>
         </div>
         <!-- ↓マイページへのリンクを追加 -->
-
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link>
+            {{ __('Mypage') }}
+          </x-nav-link>
+        </div>
+        <!-- ↓検索ページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link>
+            {{ __('Search') }}
+          </x-nav-link>
+        </div>
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ml-6">
         <x-dropdown align="right" width="48">
@@ -91,6 +101,17 @@
       </x-responsive-nav-link>
     </div>
     <!-- ↓マイページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link>
+        {{ __('Mypage') }}
+      </x-responsive-nav-link>
+    </div>
+    <!-- ↓検索ページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link>
+        {{ __('Search') }}
+      </x-responsive-nav-link>
+    </div>
     <!-- Responsive Settings Options -->
     <div class="pt-4 pb-1 border-t border-gray-200">
       <div class="flex items-center px-4">
