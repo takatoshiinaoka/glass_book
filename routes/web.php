@@ -18,12 +18,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tweet/searched', [TweetController::class, 'searched'])->name('tweet.searched');
     
     Route::get('/input', [ContentController::class, 'input'])->name('input');
+    Route::get('/search', [ContentController::class, 'search'])->name('search');
+    Route::get('/searched', [ContentController::class, 'searched'])->name('searched');
     Route::post('/save', [ContentController::class, 'save'])->name('save');
     Route::get('/output', [ContentController::class, 'output'])->name('output');
     Route::get('/detail/{content_id}', [ContentController::class, 'detail'])->name('detail');
     Route::get('/edit/{content_id}', [ContentController::class, 'edit'])->name('edit');
     Route::post('/update', [ContentController::class, 'update'])->name('update');
     Route::post('/delete', [ContentController::class, 'delete'])->name('delete');
+    
 
     Route::resource('tweet', TweetController::class);
 });

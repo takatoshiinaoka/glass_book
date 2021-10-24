@@ -14,6 +14,11 @@ class ContentController extends Controller
     {
         return view('contents.input');
     }
+    
+    public function search()
+    {
+        return view('contents.search');
+    }
 
     public function save(Request $request)
     {
@@ -118,4 +123,97 @@ class ContentController extends Controller
 
         return redirect(route('output'));
     }
+
+    //検索画面ボタン押下後検索処理
+    public function searched(Request $request)
+    {
+
+        // var_dump($request);
+        // exit();
+        //確認済み
+        $validator = Validator::make($request->all(), [
+        'search' => 'required | max:250',
+      ]);
+      // バリデーション:エラー
+      if ($validator->fails()) {
+        return redirect()
+          ->route('tweet.search')
+          ->withInput()
+          ->withErrors($validator);
+      }
+      $query = Tweet::query();
+      //targetに検索語を格納,sortにソートの値を格納
+      $words = $request ->search;
+      $sort = $request ->sort;
+      $sort_check = array(
+        "userfilter" => 0,
+        "sincefilter" => 0,
+        "untilfilter" => 0,
+      );
+      //絞り込みがないか確かめ(上からユーザ名、いつ以降、いつ以前で絞り込み)
+      if(preg_match('%flom:%',$words)){
+        $sort_check["userfilter"] = 1;
+      }
+      if(preg_match('%since:%',$words)){
+        $sort_check["sincefilter"] = 1;
+      }
+      if(preg_match('%until:%',$words)){
+        $sort_check["sincefilter"] = 1;
+      }
+      //ソートの並び替えをorder格納
+      if($sort == ""){
+        $query->orderBy('updated_at','desc');
+      }else if($sort == "new"){
+        $query->orderBy('created_at','desc');
+      }else if($sort = "old"){
+        $query->orderBy('created_at','asc');
+      }
+      //空白ごとに分けて配列に格納
+      $array_words = explode(' ',$words);
+      $where = "";
+      if($sort_check["userfilter"] == 1){
+        $array_num = array_search('flom:',$array_words);
+        $array_words[$array_num] = str_replace('flom:','',$array_words[$array_num]);
+        //Userから名前検索してuser_idを持ってくる
+        $users = User::where('name','like',"%$array_words[$array_num]%")->pluck('id');
+        //条件にid追加
+        $query->where('user_id',$users);
+        array_splice($array_words,$array_num,1);
+      }
+      if($sort_check["sincefilter"] == 1){
+        $array_num = array_search('since:',$array_words);
+        str_replace('since:','',$array_words[$array_num]);
+        $query->whereColumn('created_at','<',$array_words[$array_num]+' '+$array_words[$array_num+1]);
+        if($sort_check["untilfilter"] != 1){
+          array_splice($array_words,$array_num,2);
+        }
+      }
+      if($sort_check["untilfilter"] == 1){
+        $array_num = array_search('until:',$array_words);
+        str_replace('until:','',$array_words[$array_num]);
+        $query->whereColumn('created_at','>',$array_words[$array_num]+' '+$array_words[$array_num+1]);
+        array_splice($array_words,$array_num,2);
+      }
+      //繰り返しで複数検索できるようにする
+      foreach($array_words as $word){
+        $query->orWhere('tweet','like',"%$word%")->orWhere('description','like',"%$word%");
+      }
+      // dd($query->toSql(),$query->getBindings());
+      $result = $query->get();
+      //一覧画面に検索結果を格納する
+      return view('tweet.index',[
+        'tweets' => $result
+      ]);
+    }
+    
+
+    //laraterのマイページ
+    // public function mydata()
+    // {
+    //   // Userモデルに定義した関数を実行する．
+    //   $tweets = User::find(Auth::user()->id)->mytweets;
+    //   return view('tweet.index', [
+    //     'tweets' => $tweets
+    //   ]);
+    // }
 }
