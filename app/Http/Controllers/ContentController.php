@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Content;
+use App\Models\User;
 use App\Models\ContentImage;
+use Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
@@ -23,6 +25,9 @@ class ContentController extends Controller
     public function save(Request $request)
     {
         $input_content = new Content();
+        // ↓編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
+        $data = $request->merge(['user_id' => Auth::user()->id])->all();
+        $input_content->user_id =$data;
         $input_content->content = $request['content'];
         $input_content->save();
 
@@ -40,6 +45,9 @@ class ContentController extends Controller
                 ]
             ]);
 
+
+            
+            
             if ($request->file('file')->isValid([])) {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $file_path = Storage::putFile('/images', $request->file('file'), 'public');
@@ -51,14 +59,17 @@ class ContentController extends Controller
                 $image_info->save();
             }
         }
+        
 
         return redirect(route('output'));
     }
 
     public function output()
     {
-        $contents_get_query = Content::select('*');
+        $contents_get_query = Content::select('id');
         $items = $contents_get_query->get();
+        $names_get_query = User::select('name');
+        $names = $names_get_query->get();
 
         foreach ($items as &$item) {
             $file_path = ContentImage::select('file_path')
@@ -67,6 +78,9 @@ class ContentController extends Controller
             if (isset($file_path)) {
                 $item['file_path'] = $file_path['file_path'];
             }
+        }
+        foreach($names as &$name){
+            
         }
 
         return view('contents.output', [
