@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Content;
 use App\Models\User;
 use App\Models\ContentImage;
+use App\Models\Glass;
 use Auth;
+use Validator;
+use DB;
 use Illuminate\Support\Facades\Storage;
+
 
 class ContentController extends Controller
 {
@@ -24,11 +28,23 @@ class ContentController extends Controller
 
     public function save(Request $request)
     {
-        $input_content = new Content();
+        $userid = Auth::id();
+        $input_glass = new Glass();
+        $input_glass->maker = $request['maker'];
+        $input_glass->model_number = $request['model_number'];
+        $input_glass->user_id = $userid;
+        $input_glass->year_start = $request['year_start'];
+        $input_glass->year_end = $request['year_end'];
+        $generation = Glass::getUserGeneration($userid);
+        $input_glass->generation = $generation;
+        $input_glass->save();
         // ↓編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        $data = $request->merge(['user_id' => Auth::user()->id])->all();
-        $input_content->user_id =$data;
+        // $data = $request->merge(['user_id' => Auth::user()->id])->all();
+        $input_content = new Content();
         $input_content->content = $request['content'];
+        $input_content->glass_id = $input_glass->id;
+        $input_content->user_id = $userid;
+
         $input_content->save();
 
         if ($request->file('file')) {
@@ -137,8 +153,6 @@ class ContentController extends Controller
 
         return redirect(route('output'));
     }
-
-    //検索画面ボタン押下後検索処理
     public function searched(Request $request)
     {
 
@@ -148,75 +162,93 @@ class ContentController extends Controller
         $validator = Validator::make($request->all(), [
         'search' => 'required | max:250',
       ]);
-      // バリデーション:エラー
       if ($validator->fails()) {
         return redirect()
           ->route('tweet.search')
           ->withInput()
           ->withErrors($validator);
       }
-      $query = Tweet::query();
       //targetに検索語を格納,sortにソートの値を格納
       $words = $request ->search;
+      $array_words = explode(' ',$words);
+      //検索対象のquery準備
+      $query = DB::table('contents as co')
+                      ->select([
+                          'co.id',
+                          'ci.file_path',
+                          'us.name',
+                          'gl.generation',
+                        ])
+                      ->leftjoin('content_images as ci',function($join){
+                            $join->on('co.id','=','ci.content_id');
+                        })
+                      ->leftjoin('glasses as gl',function($join)use($array_words){
+                          $join->on('co.glass_id','=','gl.id');
+                          foreach($array_words as $word){
+                            $join->orWhere('gl.maker','like',"%$word%")->orWhere('gl.model_number','like',"%$word%");
+                          }
+                        })
+                      ->leftjoin('users as us',function($join)use($array_words){
+                          $join->on('co.user_id','=','us.id');
+                          foreach($array_words as $word){
+                            $join->orWhere('us.name','like',"%$word%");
+                          }
+                        });
+      foreach($array_words as $word){
+        $query->orWhere('co.content','like',"%$word%");
+      }
       $sort = $request ->sort;
-      $sort_check = array(
-        "userfilter" => 0,
-        "sincefilter" => 0,
-        "untilfilter" => 0,
-      );
-      //絞り込みがないか確かめ(上からユーザ名、いつ以降、いつ以前で絞り込み)
-      if(preg_match('%flom:%',$words)){
-        $sort_check["userfilter"] = 1;
-      }
-      if(preg_match('%since:%',$words)){
-        $sort_check["sincefilter"] = 1;
-      }
-      if(preg_match('%until:%',$words)){
-        $sort_check["sincefilter"] = 1;
-      }
       //ソートの並び替えをorder格納
       if($sort == ""){
-        $query->orderBy('updated_at','desc');
+        $query->orderBy('co.updated_at','desc');
       }else if($sort == "new"){
-        $query->orderBy('created_at','desc');
+        $query->orderBy('co.created_at','desc')->orderBy('co.updated_at','desc');
       }else if($sort = "old"){
-        $query->orderBy('created_at','asc');
+        $query->orderBy('co.created_at','asc')->orderBy('co.updated_at','asc');
       }
-      //空白ごとに分けて配列に格納
-      $array_words = explode(' ',$words);
-      $where = "";
-      if($sort_check["userfilter"] == 1){
-        $array_num = array_search('flom:',$array_words);
-        $array_words[$array_num] = str_replace('flom:','',$array_words[$array_num]);
-        //Userから名前検索してuser_idを持ってくる
-        $users = User::where('name','like',"%$array_words[$array_num]%")->pluck('id');
-        //条件にid追加
-        $query->where('user_id',$users);
-        array_splice($array_words,$array_num,1);
-      }
-      if($sort_check["sincefilter"] == 1){
-        $array_num = array_search('since:',$array_words);
-        str_replace('since:','',$array_words[$array_num]);
-        $query->whereColumn('created_at','<',$array_words[$array_num]+' '+$array_words[$array_num+1]);
-        if($sort_check["untilfilter"] != 1){
-          array_splice($array_words,$array_num,2);
-        }
-      }
-      if($sort_check["untilfilter"] == 1){
-        $array_num = array_search('until:',$array_words);
-        str_replace('until:','',$array_words[$array_num]);
-        $query->whereColumn('created_at','>',$array_words[$array_num]+' '+$array_words[$array_num+1]);
-        array_splice($array_words,$array_num,2);
-      }
-      //繰り返しで複数検索できるようにする
-      foreach($array_words as $word){
-        $query->orWhere('tweet','like',"%$word%")->orWhere('description','like',"%$word%");
-      }
+      //絞り込み機能（未完）
+      // $sort_check = array(
+      //   "userfilter" => 0,
+      //   "sincefilter" => 0,
+      //   "untilfilter" => 0,
+      // );
+      // if(preg_match('%flom:%',$words)){
+      //   $sort_check["userfilter"] = 1;
+      // }
+      // if(preg_match('%since:%',$words)){
+      //   $sort_check["sincefilter"] = 1;
+      // }
+      // if(preg_match('%until:%',$words)){
+      //   $sort_check["sincefilter"] = 1;
+      // }
+      // if($sort_check["userfilter"] == 1){
+      //   $array_num = array_search('flom:',$array_words);
+      //   $array_words[$array_num] = str_replace('flom:','',$array_words[$array_num]);
+      //   //Userから名前検索してuser_idを持ってくる
+      //   $users = User::where('name','like',"%$array_words[$array_num]%")->pluck('id');
+      //   //条件にid追加
+      //   $query->where('user_id',$users);
+      //   array_splice($array_words,$array_num,1);
+      // }
+      // if($sort_check["sincefilter"] == 1){
+      //   $array_num = array_search('since:',$array_words);
+      //   str_replace('since:','',$array_words[$array_num]);
+      //   $query->whereColumn('created_at','<',$array_words[$array_num]+' '+$array_words[$array_num+1]);
+      //   if($sort_check["untilfilter"] != 1){
+      //     array_splice($array_words,$array_num,2);
+      //   }
+      // }
+      // if($sort_check["untilfilter"] == 1){
+      //   $array_num = array_search('until:',$array_words);
+      //   str_replace('until:','',$array_words[$array_num]);
+      //   $query->whereColumn('created_at','>',$array_words[$array_num]+' '+$array_words[$array_num+1]);
+      //   array_splice($array_words,$array_num,2);
+      // }
       // dd($query->toSql(),$query->getBindings());
       $result = $query->get();
       //一覧画面に検索結果を格納する
-      return view('tweet.index',[
-        'tweets' => $result
+      return view('contents.searched',[
+        'items' => $result
       ]);
     }
     
