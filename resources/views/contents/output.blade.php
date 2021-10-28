@@ -1,4 +1,7 @@
-
+<?php
+// var_dump($items);
+// exit();
+?>
 
 <x-app-layout>
   <x-slot name="header">
@@ -11,17 +14,17 @@
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
             
-        @foreach ($items as $item)
+        @foreach ($items->unique('id') as $item)
 
         <hr>
 
-        @if (isset($item['file_path']))
-        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}">
+        @if (isset($item->file_path))
+        <img src="{{asset('storage/' . $item->file_path)}}" alt="{{asset('storage/' . $item->file_path)}}">
         @endif
         
-        <p>{!! nl2br(preg_replace('/(https?:\/\/[^\s]*)/', '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $item['content'])) !!}</p>
-        <a href="{{route('detail', ['content_id' => $item['id']])}}">詳細</a>
-        <a href="{{route('edit', ['content_id' => $item['id']])}}">編集</a>
+        <p>名前: {{$item->name}} ({{$item->generation}}代目)</p>
+        <a href="{{route('detail', ['content_id' => $item->id])}}">詳細</a>
+        <hr>
         @endforeach
 
 

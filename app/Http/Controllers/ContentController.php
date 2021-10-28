@@ -82,19 +82,36 @@ class ContentController extends Controller
 
     public function output()
     {
-        $contents_get_query = Content::select('id');
+        $contents_get_query = Content::select();
         $items = $contents_get_query->get();
-        $names_get_query = User::select('name');
-        $names = $names_get_query->get();
+        // $names_get_query = User::select('name');
+        // $names = $names_get_query->get();
+        // $generations_get_query = Glass::select('generation');
+        // $generations = $generations_get_query->get();
+
+        // var_dump($generations[1]['generation']);
+        // exit();
 
         foreach ($items as &$item) {
             $file_path = ContentImage::select('file_path')
             ->where('content_id', $item['id'])
             ->first();
+            
             if (isset($file_path)) {
                 $item['file_path'] = $file_path['file_path'];
             }
+            //名前
+            $names=User::select('name')
+            ->where('id', $item['user_id'])
+            ->first();
+            $item['name']=$names['name'];
+            //世代
+            $generations=Glass::select('generation')
+            ->where('id', $item['glass_id'])
+            ->first();
+            $item['generation']=$generations['generation'];
         }
+        
         foreach($names as &$name){
             
         }

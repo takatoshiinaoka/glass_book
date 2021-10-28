@@ -19,13 +19,13 @@
         <!-- ↓一覧ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('output')" :active="request()->routeIs('output')">
-            {{ __('Index') }}
+            {{ __('List of glasses') }}
           </x-nav-link>
         </div>
         <!-- ↓作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('input')" :active="request()->routeIs('input')">
-            {{ __('Create') }}
+            {{ __('Add_Glass') }}
           </x-nav-link>
         </div>
         <!-- ↓マイページへのリンクを追加 -->
@@ -36,7 +36,7 @@
         </div>
         <!-- ↓検索ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link>
+          <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
             {{ __('Search') }}
           </x-nav-link>
         </div>
