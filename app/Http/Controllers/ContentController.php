@@ -342,12 +342,12 @@ class ContentController extends Controller
     
 
     //laraterのマイページ
-    // public function mydata()
-    // {
+    public function mydata()
+    {
     //   // Userモデルに定義した関数を実行する．
-    //   $tweets = User::find(Auth::user()->id)->mytweets;
-    //   return view('tweet.index', [
-    //     'tweets' => $tweets
-    //   ]);
-    // }
+      $tweets = User::find(Auth::user()->id)->mytweets;
+      return view('output', [
+      'tweets' => $tweets
+      ]);
+    }
 }

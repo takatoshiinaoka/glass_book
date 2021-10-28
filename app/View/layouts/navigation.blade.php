@@ -18,18 +18,28 @@
         </div>
         <!-- ↓一覧ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
-            {{ __('Index') }}
+          <x-nav-link :href="route('output')" :active="request()->routeIs('output')">
+            {{ __('List of glasses') }}
           </x-nav-link>
         </div>
         <!-- ↓作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
-            {{ __('Create') }}
+          <x-nav-link :href="route('input')" :active="request()->routeIs('input')">
+            {{ __('Add_Glass') }}
           </x-nav-link>
         </div>
-      </div>
-
+        <!-- ↓マイページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('mypage')" :active="request()->routeIs('mypage')">
+            {{ __('Mypage') }}
+          </x-nav-link>
+        </div>
+        <!-- ↓検索ページへのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
+            {{ __('Search') }}
+          </x-nav-link>
+        </div>
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ml-6">
         <x-dropdown align="right" width="48">
@@ -80,17 +90,28 @@
     </div>
     <!-- ↓一覧ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
-      <x-responsive-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
+      <x-responsive-nav-link :href="route('output')" :active="request()->routeIs('output')">
         {{ __('Index') }}
       </x-responsive-nav-link>
     </div>
     <!-- ↓作成ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
-      <x-responsive-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
+      <x-responsive-nav-link :href="route('input')" :active="request()->routeIs('input')">
         {{ __('Create') }}
       </x-responsive-nav-link>
     </div>
-
+    <!-- ↓マイページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link>
+        {{ __('Mypage') }}
+      </x-responsive-nav-link>
+    </div>
+    <!-- ↓検索ページへのリンクを追加 -->
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link>
+        {{ __('Search') }}
+      </x-responsive-nav-link>
+    </div>
     <!-- Responsive Settings Options -->
     <div class="pt-4 pb-1 border-t border-gray-200">
       <div class="flex items-center px-4">
@@ -120,4 +141,3 @@
     </div>
   </div>
 </nav>
-
