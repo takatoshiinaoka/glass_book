@@ -23,7 +23,7 @@
         @endif
         
         <p>名前: {{$item->name}} ({{$item->generation}}代目)</p>
-        <a href="{{route('detail', ['content_id' => $item->id])}}">詳細</a>
+        <a href="{{route('detail_public', ['content_id' => $item->id])}}">詳細</a>
         <hr>
         @endforeach
 
