@@ -23,8 +23,6 @@
         <p>メガネのストーリー:<br>  {!! nl2br(preg_replace('/(https?:\/\/[^\s]*)/', '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $item['content'])) !!}</p>
         
 
-
-
         </div>
       </div>
     </div>

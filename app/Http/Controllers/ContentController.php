@@ -351,7 +351,7 @@ class ContentController extends Controller
       ]);
     }
 
-    public function detail_public($content_id)
+    public function detail_pub($content_id)
     {
         $content_get_query = Content::select('*');
         $item = $content_get_query->find($content_id);
