@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tweet/searched', [TweetController::class, 'searched'])->name('tweet.searched');
     
     Route::get('/input', [ContentController::class, 'input'])->name('input');
+    Route::get('/mypage', [ContentController::class, 'mypage'])->name('mypage');
     Route::get('/search', [ContentController::class, 'search'])->name('search');
     Route::get('/searched', [ContentController::class, 'searched'])->name('searched');
     Route::post('/save', [ContentController::class, 'save'])->name('save');
