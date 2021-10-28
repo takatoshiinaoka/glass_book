@@ -84,10 +84,6 @@ class ContentController extends Controller
     {
         $contents_get_query = Content::select();
         $items = $contents_get_query->get();
-        // $names_get_query = User::select('name');
-        // $names = $names_get_query->get();
-        // $generations_get_query = Glass::select('generation');
-        // $generations = $generations_get_query->get();
 
         // var_dump($generations[1]['generation']);
         // exit();
