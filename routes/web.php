@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit/{content_id}', [ContentController::class, 'edit'])->name('edit');
     Route::post('/update', [ContentController::class, 'update'])->name('update');
     Route::post('/delete', [ContentController::class, 'delete'])->name('delete');
-    Route::get('/detail_pub/{content_id}', [ContentController::class, 'detail_public'])->name('detail_public');
+    Route::get('/detail_public/{content_id}', [ContentController::class, 'detail_public'])->name('detail_public');
 
     Route::resource('tweet', TweetController::class);
 });
