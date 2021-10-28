@@ -8,7 +8,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('input') }}
+      {{ __('めがね登録') }}
     </h2>
   </x-slot>
   <div class="py-12">
@@ -19,8 +19,13 @@
         
         <form action="{{route('save')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <textarea name="content" cols="30" rows="10"></textarea>
-            
+            何年から何年まで使ったか<br>
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" id="year_start">
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" id="year_end"><br>
+            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" id="maker"><br>
+            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" id="model_number"><br>
+            眼鏡のストーリー
+            <textarea name="content" cols="40" rows="7"></textarea>
             <br>
             @error('file')
                 {{$message}}

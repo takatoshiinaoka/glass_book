@@ -19,9 +19,8 @@ class CreateGlassesTable extends Migration
             $table->string('model_number');
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('image_id');
             $table->date('year_start');
-            $table->date('year_end');
+            $table->date('year_end')->nullable();
             $table->Integer('generation');
             // $table->softDeletes();
             $table->timestamps();
