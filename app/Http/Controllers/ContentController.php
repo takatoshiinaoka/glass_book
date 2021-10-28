@@ -132,6 +132,42 @@ class ContentController extends Controller
         if (isset($file_path)) {
             $item['file_path'] = $file_path['file_path'];
         }
+        //name
+        $names=User::select('name')
+        ->where('id', $item['user_id'])
+        ->first();
+        $item['name']=$names['name'];
+        //generation
+        $generations=Glass::select('generation')
+        ->where('id', $item['glass_id'])
+        ->first();
+        $item['generation']=$generations['generation'];
+
+        //year_start
+        $year_starts=Glass::select('year_start')
+        ->where('id', $item['glass_id'])
+        ->first();
+        $item['year_start']=$year_starts['year_start'];
+        //year_end
+        $year_ends=Glass::select('year_end')
+        ->where('id', $item['glass_id'])
+        ->first();
+        if($year_ends['year_end']==''){
+          $item['year_end']='現在';
+        }
+        else{
+          $item['year_end']=$year_ends['year_end'];
+        }
+        //maker
+        $makers=Glass::select('maker')
+        ->where('id', $item['glass_id'])
+        ->first();
+        $item['maker']=$makers['maker'];
+        //model_number
+        $model_numbers=Glass::select('model_number')
+        ->where('id', $item['glass_id'])
+        ->first();
+        $item['model_number']=$model_numbers['model_number'];
 
         return view('contents.detail', [
             'item' => $item,
