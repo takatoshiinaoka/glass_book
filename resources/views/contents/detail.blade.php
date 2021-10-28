@@ -15,9 +15,13 @@
         <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}">
         @endif
         
-        <p>投稿ID: {{$item['id']}}</p>
-        <p>投稿内容: {!! nl2br(preg_replace('/(https?:\/\/[^\s]*)/', '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $item['content'])) !!}</p>
-        <p>投稿時間: {{$item['created_at']}}</p>
+        <p>投稿ID : {{$item['id']}}</p>
+        <p>名前   :  {{$item['name']}}({{$item->generation}}代目)</p>
+        <p>year   :    {{$item['year_start']}} ~ {{$item['year_end']}}</p>
+        <p>maker  : {{$item['maker']}}</p>
+        <p>型番   : {{$item['model_number']}}</p>
+        <br>
+        <p>メガネのストーリー:<br>  {!! nl2br(preg_replace('/(https?:\/\/[^\s]*)/', '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>', $item['content'])) !!}</p>
         <a href="{{route('edit', ['content_id' => $item['id']])}}">編集</a>
         <form action="{{route('delete')}}" method="post">
             @csrf
