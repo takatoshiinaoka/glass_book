@@ -26,5 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-    
+    public function mytweets()
+  {
+    return $this->hasMany(glasses::class)->orderBy('updated_at', 'desc');
+  }
 }
