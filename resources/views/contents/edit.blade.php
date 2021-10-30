@@ -20,13 +20,13 @@
             <input class="border py-2 px-3 text-grey-darkest invisible" type="text" name="name" value="{{$item['name']}}" id="name">
             <br>
             何年から何年まで使ったか<br>
-            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" value="{{$item['year_start']}}" id="year_start">
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" value="{{$item['year_start']}}" id="year_start" required>
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" value="{{$item['year_end']}}" id="year_end"><br>
-            世代<br><input class="" type="text" name="generation" value="{{$item['generation']}}" id="generation"><br>
-            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" value="{{$item['maker']}}" id="maker"><br>
-            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" value="{{$item['model_number']}}" id="model_number"><br>
+            世代<br><input class="" type="text" name="generation" value="{{$item['generation']}}" id="generation" required><br>
+            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" value="{{$item['maker']}}" id="maker" required><br>
+            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" value="{{$item['model_number']}}" id="model_number" required><br>
             眼鏡のストーリー
-            <textarea name="content" cols="40" rows="7">{{$item['content']}}</textarea>
+            <textarea name="content" cols="40" rows="7" required>{{$item['content']}}</textarea>
             <br>
             
             <input type="submit" value="送信">

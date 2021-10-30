@@ -20,21 +20,21 @@
         <form action="{{route('save')}}" method="post" enctype="multipart/form-data">
             @csrf
             何年から何年まで使ったか(空白は現在になります)<br>
-            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" id="year_start">
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" id="year_start" required>
             ~
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" id="year_end"><br>
-            世代<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="generation" id="generation"><br>
-            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" id="maker"><br>
-            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" id="model_number"><br>
+            世代<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="generation" id="generation" required><br>
+            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" id="maker" required><br>
+            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" id="model_number" required><br>
             眼鏡のストーリー
             <br>
-            <textarea name="content" cols="40" rows="7"></textarea>
+            <textarea name="content" cols="40" rows="7" required></textarea>
             <br>
             @error('file')
                 {{$message}}
                 <br>
             @enderror
-            <input type="file" name="file">
+            <input type="file" name="file" required>
             
             <input type="submit" value="送信">
         </form>

@@ -14,7 +14,7 @@
             @csrf
             <div class="flex flex-col mb-4">
               <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="contents">Search words</label>
-              <input class="border py-2 px-3 text-grey-darkest" type="text" name="search" id="search">
+              <input class="border py-2 px-3 text-grey-darkest" type="text" name="search" id="search" required>
             
               <select class="form-select block w-full mt-1" name="sort" size="1" >
                 <option value="">検索結果をソートできます</option>
