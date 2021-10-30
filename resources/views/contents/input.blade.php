@@ -22,6 +22,7 @@
             何年から何年まで使ったか<br>
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" id="year_start">
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" id="year_end"><br>
+            世代<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="generation" id="generation"><br>
             メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" id="maker"><br>
             型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" id="model_number"><br>
             眼鏡のストーリー
