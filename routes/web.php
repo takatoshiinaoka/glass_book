@@ -14,9 +14,7 @@ use App\Http\Controllers\ContentController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/tweet/search', [TweetController::class, 'search'])->name('tweet.search');
-    Route::get('/tweet/searched', [TweetController::class, 'searched'])->name('tweet.searched');
-    
+
     Route::get('/input', [ContentController::class, 'input'])->name('input');
     Route::get('/mypage', [ContentController::class, 'mypage'])->name('mypage');
     Route::get('/search', [ContentController::class, 'search'])->name('search');
@@ -28,8 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update', [ContentController::class, 'update'])->name('update');
     Route::post('/delete', [ContentController::class, 'delete'])->name('delete');
     Route::get('/detail_public/{content_id}', [ContentController::class, 'detail_public'])->name('detail_public');
-
-    Route::resource('tweet', TweetController::class);
 });
 Route::get('/', function () {
     return view('welcome');
