@@ -16,7 +16,12 @@
         @endif
         
         <p>投稿ID : {{$item['id']}}</p>
-        <p>名前   :  {{$item['name']}}({{$item->generation}}代目)</p>
+        <p>名前   :  {{$item['name']}}
+        @if (isset($item->file_path))
+        (初代)</p>
+        @else
+        ({{$item->generation}}代目)</p>
+        @endif
         <p>year   :    {{$item['year_start']}} ~ {{$item['year_end']}}</p>
         <p>maker  : {{$item['maker']}}</p>
         <p>型番   : {{$item['model_number']}}</p>
