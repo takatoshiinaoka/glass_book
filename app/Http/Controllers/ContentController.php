@@ -92,7 +92,6 @@ class ContentController extends Controller
             $file_path = ContentImage::select('file_path')
             ->where('content_id', $item['id'])
             ->first();
-            
             if (isset($file_path)) {
                 $item['file_path'] = $file_path['file_path'];
             }
@@ -106,9 +105,10 @@ class ContentController extends Controller
             ->where('id', $item['glass_id'])
             ->first();
             $item['generation']=$generations['generation'];
+            
         }
         
-
+        
         return view('contents.output', [
             'items' => $items,
         ]);
