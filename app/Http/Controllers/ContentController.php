@@ -308,6 +308,19 @@ class ContentController extends Controller
 
 
       //検索対象のquery準備
+      // $content_query = Content::select('*');
+      // foreach($array_words as $word){
+      //   $content_query->orWhere('content','like',"%$word%");
+      // }
+      // $glass_query = Glass::select('*');
+      // foreach($glass_query as $word){
+      //   $glass_query->orWhere('gl.maker','like',"%$word%")->orWhere('gl.model_number','like',"%$word%");
+      // }
+      // $user_query = User::select('*');
+      // foreach($array_words as $word){
+      //   $join->orWhere('us.name','like',"%$word%");
+      // }
+
       $query = DB::table('contents as co')
                       ->select([
                           'co.id',
@@ -331,7 +344,7 @@ class ContentController extends Controller
                           }
                         });
       foreach($array_words as $word){
-        $query->orWhere('co.content','like',"%$word%")->orWhere('us.name','like',"%$word%")->orWhere('gl.maker','like',"%$word%")->orWhere('gl.model_number','like',"%$word%");
+        $query->orWhere('co.content','like',"%$word%");
       }
       // dd($query->toSql(),$query->getBindings());
       $sort = $request ->sort;
