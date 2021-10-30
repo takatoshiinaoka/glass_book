@@ -28,6 +28,19 @@ class ContentController extends Controller
 
     public function save(Request $request)
     {
+      //targetに検索語を格納,sortにソートの値を格納
+      $year_start = $request ->year_start;
+      $year_end = $request ->year_end;
+      $generation = $request ->generation;
+      $maker = $request ->maker;
+      $model_number = $request ->model_number;
+      $content = $request ->content;
+
+      // var_dump($year_start,$year_end,$generation,$maker,$model_number,$content);
+      // exit();
+      if($year_start==''||$year_end==''||$generation==''||$maker==''||$model_number==''||$content==''){
+        return redirect(route('save'));
+      }
         $userid = Auth::id();
         $input_glass = new Glass();
         $input_glass->maker = $request['maker'];

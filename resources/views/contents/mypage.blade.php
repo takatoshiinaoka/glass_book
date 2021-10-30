@@ -23,7 +23,12 @@
         @endif
         
         @if ($item['user_id']==Auth::id())
-        <p>名前: {{$item->name}} ({{$item->generation}}代目)</p>
+        <p>名前: {{$item->name}} 
+        @if (isset($item->file_path))
+        (初代)</p>
+        @else
+        ({{$item->generation}}代目)</p>
+        @endif
         <a href="{{route('detail', ['content_id' => $item->id])}}">詳細</a>
         @endif
 

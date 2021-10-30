@@ -22,7 +22,12 @@
         <img src="{{asset('storage/' . $item->file_path)}}" alt="{{asset('storage/' . $item->file_path)}}">
         @endif
         
-        <p>名前: {{$item->name}} ({{$item->generation}}代目)</p>
+        <p>名前: {{$item->name}} 
+        @if (isset($item->file_path))
+        (初代)</p>
+        @else
+        ({{$item->generation}}代目)</p>
+        @endif
         <a href="{{route('detail_public', ['content_id' => $item->id])}}">詳細</a>
         <hr>
         @endforeach
