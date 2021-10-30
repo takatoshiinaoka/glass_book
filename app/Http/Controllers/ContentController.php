@@ -36,7 +36,7 @@ class ContentController extends Controller
         $input_glass->year_start = $request['year_start'];
         $input_glass->year_end = $request['year_end'];
         $generation = Glass::getUserGeneration($userid);
-        $input_glass->generation = $generation;
+        $input_glass->generation = $request['generation'];
         $input_glass->save();
         // ↓編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
         // $data = $request->merge(['user_id' => Auth::user()->id])->all();
@@ -83,7 +83,7 @@ class ContentController extends Controller
     public function output()
     {
         $contents_get_query = Content::select();
-        $items = $contents_get_query->get();
+        $items = $contents_get_query->orderBy('updated_at','DESC')->get();
 
         // var_dump($generations[1]['generation']);
         // exit();
