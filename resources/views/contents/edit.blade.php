@@ -10,13 +10,28 @@
         <div class="p-6 bg-white border-b border-gray-200">
             
         <p>投稿ID: {{$item['id']}}</p>
+        @if (isset($item['file_path']))
+        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}">
+        @endif
         <form action="{{route('update')}}" method="post">
-            @csrf
-            <input type="hidden" name="id" value="{{$item['id']}}">
-            <textarea name="content" cols="30" rows="10">{{$item['content']}}</textarea>
+          @csrf
+            何年から何年まで使ったか<br>
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" value="{{$item['year_start']}}" id="year_start">
+            <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" value="{{$item['year_end']}}" id="year_end"><br>
+            世代<br><input class="" type="text" name="generation" value="{{$item['generation']}}" id="generation"><br>
+            メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" value="{{$item['maker']}}" id="maker"><br>
+            型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" value="{{$item['model_number']}}" id="model_number"><br>
+            眼鏡のストーリー
+            <textarea name="content" value="{{$item['content']}}" cols="40" rows="7"></textarea>
+            <br>
+            @error('file')
+                {{$message}}
+                <br>
+            @enderror
+            <input type="file" name="file">
+            
             <input type="submit" value="送信">
         </form>
-        <p>投稿時間: {{$item['created_at']}}</p>
 
         </div>
       </div>
