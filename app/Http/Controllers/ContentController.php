@@ -108,9 +108,6 @@ class ContentController extends Controller
             $item['generation']=$generations['generation'];
         }
         
-        foreach($names as &$name){
-            
-        }
 
         return view('contents.output', [
             'items' => $items,
