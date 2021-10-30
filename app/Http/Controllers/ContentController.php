@@ -211,8 +211,48 @@ class ContentController extends Controller
 
     public function edit($content_id)
     {
-        $content_get_query = Content::select('*');
-        $item = $content_get_query->find($content_id);
+      $file_path = ContentImage::select('file_path')
+      ->where('content_id', $item['id'])
+      ->first();
+      if (isset($file_path)) {
+          $item['file_path'] = $file_path['file_path'];
+      }
+      //name
+      $names=User::select('name')
+      ->where('id', $item['user_id'])
+      ->first();
+      $item['name']=$names['name'];
+      //generation
+      $generations=Glass::select('generation')
+      ->where('id', $item['glass_id'])
+      ->first();
+      $item['generation']=$generations['generation'];
+
+      //year_start
+      $year_starts=Glass::select('year_start')
+      ->where('id', $item['glass_id'])
+      ->first();
+      $item['year_start']=$year_starts['year_start'];
+      //year_end
+      $year_ends=Glass::select('year_end')
+      ->where('id', $item['glass_id'])
+      ->first();
+      if($year_ends['year_end']==''){
+        $item['year_end']='現在';
+      }
+      else{
+        $item['year_end']=$year_ends['year_end'];
+      }
+      //maker
+      $makers=Glass::select('maker')
+      ->where('id', $item['glass_id'])
+      ->first();
+      $item['maker']=$makers['maker'];
+      //model_number
+      $model_numbers=Glass::select('model_number')
+      ->where('id', $item['glass_id'])
+      ->first();
+      $item['model_number']=$model_numbers['model_number'];
 
         return view('contents.edit', [
             'item' => $item,
@@ -221,7 +261,7 @@ class ContentController extends Controller
 
     public function update(Request $request)
     {
-        $content_get_query = Content::select('*');
+        $content_update = Content::select('*');
         $content_info = $content_get_query->find($request['id']);
         $content_info->content = $request['content'];
         $content_info->save();
@@ -283,8 +323,9 @@ class ContentController extends Controller
                           }
                         });
       foreach($array_words as $word){
-        $query->orWhere('co.content','like',"%$word%");
+        $query->orWhere('co.content','like',"%$word%")->orWhere('us.name','like',"%$word%")->orWhere('gl.maker','like',"%$word%")->orWhere('gl.model_number','like',"%$word%");
       }
+      dd($query->toSql(),$query->getBindings());
       $sort = $request ->sort;
       //ソートの並び替えをorder格納
       if($sort == ""){
@@ -332,7 +373,6 @@ class ContentController extends Controller
       //   $query->whereColumn('created_at','>',$array_words[$array_num]+' '+$array_words[$array_num+1]);
       //   array_splice($array_words,$array_num,2);
       // }
-      // dd($query->toSql(),$query->getBindings());
       $result = $query->get();
       //一覧画面に検索結果を格納する
       return view('contents.searched',[
