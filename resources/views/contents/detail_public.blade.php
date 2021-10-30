@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('詳細p') }}
+      {{ __('めがね詳細p') }}
     </h2>
   </x-slot>
   <div class="py-12">

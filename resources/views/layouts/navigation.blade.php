@@ -19,25 +19,25 @@
         <!-- ↓一覧ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('output')" :active="request()->routeIs('output')">
-            {{ __('List of glasses') }}
+            {{ __('めがね一覧') }}
           </x-nav-link>
         </div>
         <!-- ↓作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('input')" :active="request()->routeIs('input')">
-            {{ __('Add_Glass') }}
+            {{ __('めがね登録') }}
           </x-nav-link>
         </div>
         <!-- ↓マイページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('mypage')" :active="request()->routeIs('mypage')">
-            {{ __('Mypage') }}
+            {{ __('私の前世') }}
           </x-nav-link>
         </div>
         <!-- ↓検索ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
-            {{ __('Search') }}
+            {{ __('めがね検索') }}
           </x-nav-link>
         </div>
       <!-- Settings Dropdown -->
