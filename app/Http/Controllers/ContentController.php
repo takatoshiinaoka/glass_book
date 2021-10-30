@@ -208,6 +208,8 @@ class ContentController extends Controller
 
     public function edit($content_id)
     {
+      $content_get_query = Content::select('*');
+      $item = $content_get_query->find($content_id);
       $file_path = ContentImage::select('file_path')
       ->where('content_id', $item['id'])
       ->first();
@@ -250,19 +252,40 @@ class ContentController extends Controller
       ->where('id', $item['glass_id'])
       ->first();
       $item['model_number']=$model_numbers['model_number'];
-
-        return view('contents.edit', [
-            'item' => $item,
-        ]);
+      return view('contents.edit', [
+          'item' => $item,
+      ]);
     }
 
     public function update(Request $request)
     {
-        $content_update = Content::select('*');
-        $content_info = $content_get_query->find($request['id']);
-        $content_info->content = $request['content'];
-        $content_info->save();
-        return redirect(route('output'));
+      $file_path = $request['file_path'];
+      $name = $request['name'];
+      $year_start = $request['year_start'];
+      $year_end = $request['year_end'];
+      $generation = $request['generation'];
+      $maker = $request['maker'];
+      $model_number = $request['model_number'];
+      $content = $request['content'];
+      $content_id = $request['id'];
+
+      $content_get_query = Content::select('*');
+      $content_info = $content_get_query->find($content_id);
+      $content_info->content = $content;
+      $content_info->save();
+
+      $glass_id = $content_info['glass_id'];
+
+      $glass_get_query = Glass::select('*');
+      $glass_info = $glass_get_query->find($glass_id);
+      $glass_info->year_start = $year_start;
+      $glass_info->year_end = $year_end;
+      $glass_info->maker = $maker;
+      $glass_info->model_number = $model_number;
+      $glass_info->generation = $generation;
+      $glass_info->save();
+
+      return redirect(route('output'));
     }
 
     public function delete(Request $request)

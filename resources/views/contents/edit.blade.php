@@ -15,6 +15,10 @@
         @endif
         <form action="{{route('update')}}" method="post">
           @csrf
+            <input class="border py-2 px-3 text-grey-darkest invisible" type="text" name="id" value="{{$item['id']}}" id="id">
+            <input class="border py-2 px-3 text-grey-darkest invisible" type="text" name="file_path" value="{{$item['file_path']}}" id="file_path">
+            <input class="border py-2 px-3 text-grey-darkest invisible" type="text" name="name" value="{{$item['name']}}" id="name">
+            <br>
             何年から何年まで使ったか<br>
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_start" value="{{$item['year_start']}}" id="year_start">
             <input class="border py-2 px-3 text-grey-darkest" type="date" name="year_end" value="{{$item['year_end']}}" id="year_end"><br>
@@ -22,13 +26,8 @@
             メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" value="{{$item['maker']}}" id="maker"><br>
             型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" value="{{$item['model_number']}}" id="model_number"><br>
             眼鏡のストーリー
-            <textarea name="content" value="{{$item['content']}}" cols="40" rows="7"></textarea>
+            <textarea name="content" cols="40" rows="7">{{$item['content']}}</textarea>
             <br>
-            @error('file')
-                {{$message}}
-                <br>
-            @enderror
-            <input type="file" name="file">
             
             <input type="submit" value="送信">
         </form>
