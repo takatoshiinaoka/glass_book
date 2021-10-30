@@ -283,7 +283,15 @@ class ContentController extends Controller
     }
     public function searched(Request $request)
     {
+      //targetに検索語を格納,sortにソートの値を格納
+      $words = $request ->search;
+      $array_words = explode(' ',$words);
 
+      // var_dump($words);
+      // exit();
+      if($words==''){
+        return redirect(route('search'));
+      }
         // var_dump($request);
         // exit();
         //確認済み
@@ -296,9 +304,9 @@ class ContentController extends Controller
           ->withInput()
           ->withErrors($validator);
       }
-      //targetに検索語を格納,sortにソートの値を格納
-      $words = $request ->search;
-      $array_words = explode(' ',$words);
+      
+
+
       //検索対象のquery準備
       $query = DB::table('contents as co')
                       ->select([
@@ -325,7 +333,7 @@ class ContentController extends Controller
       foreach($array_words as $word){
         $query->orWhere('co.content','like',"%$word%")->orWhere('us.name','like',"%$word%")->orWhere('gl.maker','like',"%$word%")->orWhere('gl.model_number','like',"%$word%");
       }
-      dd($query->toSql(),$query->getBindings());
+      // dd($query->toSql(),$query->getBindings());
       $sort = $request ->sort;
       //ソートの並び替えをorder格納
       if($sort == ""){
