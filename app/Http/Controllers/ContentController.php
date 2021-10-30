@@ -83,7 +83,7 @@ class ContentController extends Controller
     public function output()
     {
         $contents_get_query = Content::select();
-        $items = $contents_get_query->get();
+        $items = $contents_get_query->orderBy('updated_at','DESC')->get();
 
         // var_dump($generations[1]['generation']);
         // exit();
