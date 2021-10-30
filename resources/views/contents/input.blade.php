@@ -25,6 +25,7 @@
             メーカー<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="maker" id="maker"><br>
             型番<br><input class="border py-2 px-3 text-grey-darkest" type="text" name="model_number" id="model_number"><br>
             眼鏡のストーリー
+            <br>
             <textarea name="content" cols="40" rows="7"></textarea>
             <br>
             @error('file')
