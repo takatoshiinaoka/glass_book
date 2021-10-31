@@ -28,7 +28,6 @@ class ContentController extends Controller
 
     public function save(Request $request)
     {
-      //targetに検索語を格納,sortにソートの値を格納
       $year_start = $request ->year_start;
       $generation = $request ->generation;
       $maker = $request ->maker;
@@ -45,7 +44,6 @@ class ContentController extends Controller
         $input_glass->user_id = $userid;
         $input_glass->year_start = $request['year_start'];
         $input_glass->year_end = $request['year_end'];
-        $generation = Glass::getUserGeneration($userid);
         $input_glass->generation = $generation;
         $input_glass->save();
         // ↓編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする

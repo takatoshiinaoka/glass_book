@@ -23,7 +23,7 @@
         @endif
         
         <p>名前: {{$item->name}} 
-        @if (isset($item->file_path))
+        @if ($item->generation==='1')
         (初代)</p>
         @else
         ({{$item->generation}}代目)</p>
