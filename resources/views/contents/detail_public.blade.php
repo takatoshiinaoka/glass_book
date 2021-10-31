@@ -11,7 +11,7 @@
             
         
         @if (isset($item['file_path']))
-        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}">
+        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}" width="200" height="150px">
         @endif
         
         <p>投稿ID : {{$item['id']}}</p>
