@@ -1,4 +1,9 @@
 # glass_book
+### 開発環境
+- xampp v3.3.0
+- apache v2.4.48
+- laravel v8.64.0
+- php v8.0.10
 
 # 環境構築のやり方
 まず初めにcomposerをインストールする．
