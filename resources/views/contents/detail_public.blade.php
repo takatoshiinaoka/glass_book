@@ -11,12 +11,12 @@
             
         
         @if (isset($item['file_path']))
-        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}">
+        <img src="{{asset('storage/' . $item['file_path'])}}" alt="{{asset('storage/' . $item['file_path'])}}" width="200" height="150px">
         @endif
         
         <p>投稿ID : {{$item['id']}}</p>
         <p>名前   :  {{$item['name']}}
-        @if (isset($item->file_path))
+        @if ($item['generation']==1)
         (初代)</p>
         @else
         ({{$item->generation}}代目)</p>
